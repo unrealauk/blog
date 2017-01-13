@@ -33,14 +33,14 @@ class CategoryController extends Controller
      * Lists all Category models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($id)
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => Category::find(),
-        ]);
+        $category = Category::findOne(['id' => $id]);
 
         return $this->render('index', [
-            'dataProvider' => $dataProvider,
+          'category' => $category->getCategory($id),
+          'posts' => $category->getPosts($id),
+          'categories' => $category->getCategories(),
         ]);
     }
 

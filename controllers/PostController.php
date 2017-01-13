@@ -8,6 +8,8 @@ use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\Category;
+use app\models\User;
 
 /**
  * PostController implements the CRUD actions for Post model.
@@ -20,45 +22,53 @@ class PostController extends Controller
     public function behaviors()
     {
         return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
+          'verbs' => [
+            'class' => VerbFilter::className(),
+            'actions' => [
+              'delete' => ['POST'],
             ],
+          ],
         ];
     }
 
     /**
      * Lists all Post models.
+     *
      * @return mixed
      */
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Post::find(),
+          'query' => Post::find(),
         ]);
+        $categories = new Category();
 
         return $this->render('index', [
-            'dataProvider' => $dataProvider,
+          'dataProvider' => $dataProvider,
+          'categories' => $categories->getCategories(),
         ]);
     }
 
     /**
      * Displays a single Post model.
+     *
      * @param integer $id
      * @return mixed
      */
     public function actionView($id)
     {
+        $post = new Post();
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+          'model' => $post->getPost($id),
         ]);
     }
 
     /**
      * Creates a new Post model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
+     * If creation is successful, the browser will be redirected to the 'view'
+     * page.
+     *
      * @return mixed
      */
     public function actionCreate()
@@ -69,14 +79,18 @@ class PostController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
-                'model' => $model,
+              'model' => $model,
+              'category' => Category::find()->all(),
+              'authors' => User::find()->all(),
             ]);
         }
     }
 
     /**
      * Updates an existing Post model.
-     * If update is successful, the browser will be redirected to the 'view' page.
+     * If update is successful, the browser will be redirected to the 'view'
+     * page.
+     *
      * @param integer $id
      * @return mixed
      */
@@ -88,14 +102,18 @@ class PostController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
-                'model' => $model,
+              'model' => $model,
+              'category' => Category::find()->all(),
+              'authors' => User::find()->all(),
             ]);
         }
     }
 
     /**
      * Deletes an existing Post model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * If deletion is successful, the browser will be redirected to the 'index'
+     * page.
+     *
      * @param integer $id
      * @return mixed
      */
@@ -109,6 +127,7 @@ class PostController extends Controller
     /**
      * Finds the Post model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
+     *
      * @param integer $id
      * @return Post the loaded model
      * @throws NotFoundHttpException if the model cannot be found

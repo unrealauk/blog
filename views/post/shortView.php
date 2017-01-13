@@ -2,12 +2,9 @@
 use yii\helpers\Html;
 
 /* @var $model app\models\Post */
-
-$this->title = $model->title;
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<h1><?= $model->title ?></h1>
+<h1><?= Html::a($model->title, ['post/view', 'id' => $model->id]) ?></h1>
 
 <div class="meta">
     <p>
@@ -18,11 +15,11 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 </div>
 
-<div>
-    <?= $model->content ?>
+<div class="content">
+    <?= strip_tags($model->anons) ?>
 </div>
+
 <br>
-<div class="actions">
-    <?= Html::a('Edit', ['post/update', 'id' => $model->id],
-      ['class' => 'btn btn-success']) ?>
-</div>
+
+<?= Html::a('Read more...', ['post/view', 'id' => $model->id],
+  ['class' => 'btn btn-success']) ?>

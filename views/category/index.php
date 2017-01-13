@@ -1,30 +1,44 @@
 <?php
-
+/**
+ * Created by PhpStorm.
+ * User: georgy
+ * Date: 18.10.14
+ * Time: 2:14
+ */
 use yii\helpers\Html;
-use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $dataProvider yii\data\ActiveDataProvider */
+/** @var $category \app\models\Category */
+/** @var $categories \yii\data\ActiveDataProvider */
+/** @var $posts \yii\data\ActiveDataProvider */
 
-$this->title = 'Categories';
+$this->title = 'Category ' . $category->title;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="category-index">
+
+<div class="col-sm-8 post-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Create Category', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+    <?php
+    foreach ($posts->models as $post) {
+        echo $this->render('//post/shortView', [
+          'model' => $post,
+        ]);
+    }
+    ?>
 
-            'id',
-            'title',
+</div>
 
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+<div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+    <h1>Categories</h1>
+    <ul>
+        <?php
+        foreach ($categories->models as $category) {
+            echo $this->render('shortViewCategory', [
+              'model' => $category,
+            ]);
+        }
+        ?>
+    </ul>
 </div>

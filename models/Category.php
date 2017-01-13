@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use yii\data\ActiveDataProvider;
+use yii\web\NotFoundHttpException;
 
 /**
  * This is the model class for table "category".
@@ -28,8 +30,8 @@ class Category extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title'], 'required'],
-            [['title'], 'string', 'max' => 255],
+          [['title'], 'required'],
+          [['title'], 'string', 'max' => 255],
         ];
     }
 
@@ -39,16 +41,38 @@ class Category extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'title' => 'Title',
+          'id' => 'ID',
+          'title' => 'Title',
         ];
+    }
+
+    public function getPosts()
+    {
+        return new ActiveDataProvider([
+          'query' => Post::find()
+            ->where([
+              'category_id' => $this->id,
+              'publish_status' => Post::STATUS_PUBLISH,
+            ]),
+        ]);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPosts()
+    public function getCategories()
     {
-        return $this->hasMany(Post::className(), ['category_id' => 'id']);
+        return new ActiveDataProvider([
+          'query' => Category::find(),
+        ]);
+    }
+
+    public function getCategory($id)
+    {
+        if (($model = Category::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested post does not exist.');
+        }
     }
 }

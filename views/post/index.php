@@ -1,36 +1,35 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $dataProvider yii\data\ActiveDataProvider */
-
-$this->title = 'Posts';
-$this->params['breadcrumbs'][] = $this->title;
+/* @var $posts yii\data\ActiveDataProvider */
+/* @var $categories yii\data\ActiveDataProvider */
+/* @var $post app\models\Post */
 ?>
-<div class="post-index">
+<div class="col-sm-8 post-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Create Post', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+    <?php
+    foreach ($dataProvider->models as $post) {
+        echo $this->render('shortView', [
+          'model' => $post,
+        ]);
+    }
+    ?>
 
-            'id',
-            'title',
-            'anons:ntext',
-            'content:ntext',
-            'category_id',
-            // 'author_id',
-            // 'publish_status',
-            // 'publish_date',
+</div>
 
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+<div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+    <h1>Categories</h1>
+    <ul>
+        <?php
+        foreach ($categories->models as $category) {
+            echo $this->render('//category/shortViewCategory', [
+              'model' => $category,
+            ]);
+        }
+        ?>
+    </ul>
 </div>

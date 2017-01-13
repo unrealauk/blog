@@ -48,8 +48,16 @@ AppAsset::register($this);
                 )
                 . Html::endForm()
                 . '</li>'
-            )
-        ],
+            ),
+              [
+                'label' => 'Actions',
+                'items' => [
+                  ['label' => 'Add post', 'url' => ['/post/create']],
+                  ['label' => 'Add category', 'url' => ['/category/create']],
+                  ['label' => 'Add user', 'url' => ['/user/create']],
+                ],
+              ],
+            ],
     ]);
     NavBar::end();
     ?>

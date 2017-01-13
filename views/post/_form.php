@@ -21,7 +21,7 @@ use kartik\datecontrol\DateControl;
 
     <?= $form->field($model, 'content')->widget(CKEditor::className(), [
       'options' => ['rows' => 6],
-      'preset' => 'basic'
+      'preset' => 'basic',
     ]) ?>
 
     <?= $form->field($model, 'category_id')->dropDownList(
@@ -32,15 +32,19 @@ use kartik\datecontrol\DateControl;
       ArrayHelper::map($authors, 'id', 'nickname')
     ) ?>
 
-    <?= $form->field($model, 'publish_status')->dropDownList([ 'draft' => 'Draft', 'publish' => 'Publish', ], ['prompt' => '']) ?>
+    <?= $form->field($model, 'publish_status')->dropDownList([
+      'draft' => 'Draft',
+      'publish' => 'Publish',
+    ], ['prompt' => '']) ?>
 
     <?= $form->field($model, 'publish_date')->widget(DateControl::classname(), [
       'displayFormat' => 'php:d-M-Y',
-      'type'=>DateControl::FORMAT_DATE
+      'type' => DateControl::FORMAT_DATE,
     ]); ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update',
+          ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

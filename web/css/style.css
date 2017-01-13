@@ -1,0 +1,150 @@
+/* line 4, /var/www/yii2/web/sass/base/_base.scss */
+html,
+body {
+  height: 100%;
+}
+
+/* line 9, /var/www/yii2/web/sass/base/_base.scss */
+.wrap {
+  min-height: 100%;
+  height: auto;
+  margin: 0 auto -60px;
+  padding: 0 0 60px;
+}
+
+/* line 16, /var/www/yii2/web/sass/base/_base.scss */
+.wrap > .container {
+  padding: 70px 15px 20px;
+}
+
+/* line 20, /var/www/yii2/web/sass/base/_base.scss */
+.footer {
+  height: 60px;
+  background-color: #f5f5f5;
+  border-top: 1px solid #ddd;
+  padding-top: 20px;
+}
+
+/* line 27, /var/www/yii2/web/sass/base/_base.scss */
+.jumbotron {
+  text-align: center;
+  background-color: transparent;
+}
+
+/* line 30, /var/www/yii2/web/sass/base/_base.scss */
+.jumbotron .btn {
+  font-size: 21px;
+  padding: 14px 24px;
+}
+
+/* line 36, /var/www/yii2/web/sass/base/_base.scss */
+.not-set {
+  color: #c55;
+  font-style: italic;
+}
+
+/* add sorting icons to gridview sort links */
+/* line 42, /var/www/yii2/web/sass/base/_base.scss */
+a.asc:after,
+a.desc:after {
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  padding-left: 5px;
+}
+
+/* line 54, /var/www/yii2/web/sass/base/_base.scss */
+a.asc:after {
+  content: "\e151";
+}
+
+/* line 58, /var/www/yii2/web/sass/base/_base.scss */
+a.desc:after {
+  content: "\e152";
+}
+
+/* line 62, /var/www/yii2/web/sass/base/_base.scss */
+.sort-numerical a.asc:after {
+  content: "\e153";
+}
+
+/* line 66, /var/www/yii2/web/sass/base/_base.scss */
+.sort-numerical a.desc:after {
+  content: "\e154";
+}
+
+/* line 70, /var/www/yii2/web/sass/base/_base.scss */
+.sort-ordinal a.asc:after {
+  content: "\e155";
+}
+
+/* line 74, /var/www/yii2/web/sass/base/_base.scss */
+.sort-ordinal a.desc:after {
+  content: "\e156";
+}
+
+/* line 78, /var/www/yii2/web/sass/base/_base.scss */
+.grid-view th {
+  white-space: nowrap;
+}
+
+/* line 82, /var/www/yii2/web/sass/base/_base.scss */
+.hint-block {
+  display: block;
+  margin-top: 5px;
+  color: #999;
+}
+
+/* line 88, /var/www/yii2/web/sass/base/_base.scss */
+.error-summary {
+  color: #a94442;
+  background: #fdf7f7;
+  border-left: 3px solid #eed3d7;
+  padding: 10px 20px;
+  margin: 0 0 15px 0;
+}
+
+/* align the logout "link" (button in form) of the navbar */
+/* line 97, /var/www/yii2/web/sass/base/_base.scss */
+.nav li > form > button.logout {
+  padding: 15px;
+  border: none;
+}
+
+@media (max-width: 767px) {
+  /* line 103, /var/www/yii2/web/sass/base/_base.scss */
+  .nav li > form > button.logout {
+    display: block;
+    text-align: left;
+    width: 100%;
+    padding: 10px 15px;
+  }
+}
+
+/* line 111, /var/www/yii2/web/sass/base/_base.scss */
+.nav > li > form > button.logout:focus,
+.nav > li > form > button.logout:hover {
+  text-decoration: none;
+}
+
+/* line 116, /var/www/yii2/web/sass/base/_base.scss */
+.nav > li > form > button.logout:focus {
+  outline: none;
+}
+
+/* line 5, /var/www/yii2/web/sass/components/_components.scss */
+.blog-sidebar ul {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+
+/* line 9, /var/www/yii2/web/sass/components/_components.scss */
+.blog-sidebar ul a {
+  text-decoration: none;
+  font-size: 18px;
+}

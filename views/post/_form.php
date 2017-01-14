@@ -39,7 +39,7 @@ use yii\jui\DatePicker;
     <?= $form->field($model, 'publish_date')->widget(DatePicker::className(),
       [
         'language' => 'en-AU',
-        'dateFormat' => 'php: m/d/y',
+        'dateFormat' => 'php: d M, Y',
         'clientOptions' => [''],
       ]
     ); ?>

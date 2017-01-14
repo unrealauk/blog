@@ -4,7 +4,6 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Post;
-use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -38,11 +37,11 @@ class PostController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new Post();
+        $post = new Post();
         $categories = new Category();
 
         return $this->render('index', [
-          'dataProvider' => $dataProvider->getPublishedPosts(),
+          'posts' => $post->getPublishedPosts(),
           'categories' => $categories->getCategories(),
         ]);
     }
@@ -73,9 +72,7 @@ class PostController extends Controller
     {
         $model = new Post();
 
-        if ($model->load(Yii::$app->request->post())) {
-            $model->publish_date = strtotime($model->publish_date);
-            $model->save();
+        if ($model->load(Yii::$app->request->post()) &&  $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             if(!$model->publish_date) $model->publish_date = date('m/d/y');
@@ -99,9 +96,7 @@ class PostController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post())) {
-            $model->publish_date = strtotime($model->publish_date);
-            $model->save();
+        if ($model->load(Yii::$app->request->post()) &&  $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [

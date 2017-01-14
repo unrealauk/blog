@@ -56,7 +56,8 @@ class User extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * Get posts by author id.
+     * @return \yii\db\ActiveQuery Post
      */
     public function getPosts()
     {

@@ -12,7 +12,7 @@ use yii\helpers\Html;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?php
-    foreach ($dataProvider->models as $post) {
+    foreach ($posts->models as $post) {
         echo $this->render('shortView', [
           'model' => $post,
         ]);

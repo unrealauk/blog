@@ -66,17 +66,29 @@ class Post extends \yii\db\ActiveRecord
             'publish_date' => 'Publish Date',
         ];
     }
-    
+
+    /**
+     * Get author by id.
+     * @return \yii\db\ActiveQuery User
+     */
     public function getAuthor()
     {
         return $this->hasOne(User::className(), ['id' => 'author_id']);
     }
 
+    /**
+     * Get category by id.
+     * @return \yii\db\ActiveQuery Category
+     */
     public function getCategory()
     {
         return $this->hasOne(Category::className(), ['id' => 'category_id']);
     }
 
+    /**
+     * Get published post order by date desc.
+     * @return \yii\data\ActiveDataProvider Post
+     */
     public function getPublishedPosts()
     {
         return new ActiveDataProvider([
@@ -86,6 +98,12 @@ class Post extends \yii\db\ActiveRecord
         ]);
     }
 
+    /**
+     * Get post by id.
+     * @param $id post id
+     * @return static Post
+     * @throws \yii\web\NotFoundHttpException
+     */
     public function getPost($id)
     {
         if (
@@ -98,13 +116,30 @@ class Post extends \yii\db\ActiveRecord
         }
     }
 
+    /**
+     * Check is published post.
+     * @return bool
+     */
     protected function isPublished()
     {
         return $this->publish_status === self::STATUS_PUBLISH;
     }
 
+    /**
+     * Get formatted publish_date);
+     * @return bool|string
+     */
     public function getDate()
     {
-        return date('m/d/y', $this->publish_date);
+        return date('d M, Y', $this->publish_date);
+    }
+
+    /**
+     * Convert publish_date to Unix timestamp.
+     */
+    public function beforeSave($insert)
+    {
+        $this->publish_date = strtotime($this->publish_date);
+        return parent::beforeSave($insert);
     }
 }

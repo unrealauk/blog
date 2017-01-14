@@ -46,6 +46,10 @@ class Category extends \yii\db\ActiveRecord
         ];
     }
 
+    /**
+     * Get published posts.
+     * @return \yii\db\ActiveQuery
+     */
     public function getPosts()
     {
         return new ActiveDataProvider([
@@ -59,6 +63,7 @@ class Category extends \yii\db\ActiveRecord
     }
 
     /**
+     * Get categories.
      * @return \yii\db\ActiveQuery
      */
     public function getCategories()
@@ -68,6 +73,12 @@ class Category extends \yii\db\ActiveRecord
         ]);
     }
 
+    /**
+     * Get category by id
+     * @param $id category id
+     * @return static category
+     * @throws \yii\web\NotFoundHttpException
+     */
     public function getCategory($id)
     {
         if (($model = Category::findOne($id)) !== null) {

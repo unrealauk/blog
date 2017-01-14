@@ -38,13 +38,11 @@ class PostController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new ActiveDataProvider([
-          'query' => Post::find(),
-        ]);
+        $dataProvider = new Post();
         $categories = new Category();
 
         return $this->render('index', [
-          'dataProvider' => $dataProvider,
+          'dataProvider' => $dataProvider->getPublishedPosts(),
           'categories' => $categories->getCategories(),
         ]);
     }
@@ -75,9 +73,12 @@ class PostController extends Controller
     {
         $model = new Post();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $model->publish_date = strtotime($model->publish_date);
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
+            if(!$model->publish_date) $model->publish_date = date('m/d/y');
             return $this->render('create', [
               'model' => $model,
               'category' => Category::find()->all(),
@@ -98,7 +99,9 @@ class PostController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $model->publish_date = strtotime($model->publish_date);
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [

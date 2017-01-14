@@ -4,8 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use dosamigos\ckeditor\CKEditor;
-use kartik\datecontrol\DateControl;
-
+use yii\jui\DatePicker;
 /* @var $this yii\web\View */
 /* @var $model app\models\Post */
 /* @var $form yii\widgets\ActiveForm */
@@ -37,10 +36,13 @@ use kartik\datecontrol\DateControl;
       'publish' => 'Publish',
     ], ['prompt' => '']) ?>
 
-    <?= $form->field($model, 'publish_date')->widget(DateControl::classname(), [
-      'displayFormat' => 'php:d-M-Y',
-      'type' => DateControl::FORMAT_DATE,
-    ]); ?>
+    <?= $form->field($model, 'publish_date')->widget(DatePicker::className(),
+      [
+        'language' => 'en-AU',
+        'dateFormat' => 'php: m/d/y',
+        'clientOptions' => [''],
+      ]
+    ); ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update',

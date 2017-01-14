@@ -102,4 +102,9 @@ class Post extends \yii\db\ActiveRecord
     {
         return $this->publish_status === self::STATUS_PUBLISH;
     }
+
+    public function getDate()
+    {
+        return date('m/d/y', $this->publish_date);
+    }
 }

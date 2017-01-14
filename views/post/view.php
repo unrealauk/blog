@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="meta">
     <p>
         Author: <?= $model->author->nickname ?>
-        Publication date: <?= $model->publish_date ?>
+        Publication date: <?= $model->getDate() ?>
         Category: <?= Html::a($model->category->title,
           ['category/index', 'id' => $model->category->id]) ?>
     </p>

@@ -9,6 +9,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\Category;
 use app\models\User;
+use yii\data\Pagination;
 
 /**
  * PostController implements the CRUD actions for Post model.
@@ -37,11 +38,19 @@ class PostController extends Controller
      */
     public function actionIndex()
     {
-        $post = new Post();
+        $query = Post::find()
+          ->where(['publish_status' => Post::STATUS_PUBLISH])
+          ->orderBy(['publish_date' => SORT_DESC]);
         $categories = new Category();
-
+        $countQuery = clone $query;
+        $pages = new Pagination(['totalCount' => $countQuery->count()]);
+        $pages->setPageSize(5);
+        $posts = $query->offset($pages->offset)
+          ->limit($pages->limit)
+          ->all();
         return $this->render('index', [
-          'posts' => $post->getPublishedPosts(),
+          'pages' => $pages,
+          'posts' => $posts,
           'categories' => $categories->getCategories(),
         ]);
     }
@@ -72,10 +81,12 @@ class PostController extends Controller
     {
         $model = new Post();
 
-        if ($model->load(Yii::$app->request->post()) &&  $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            if(!$model->publish_date) $model->publish_date = date('m/d/y');
+            if (!$model->publish_date) {
+                $model->publish_date = date('m/d/y');
+            }
             return $this->render('create', [
               'model' => $model,
               'category' => Category::find()->all(),
@@ -96,7 +107,7 @@ class PostController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) &&  $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [

@@ -6,11 +6,12 @@
  * Time: 2:14
  */
 use yii\helpers\Html;
-
+use yii\widgets\LinkPager;
 /* @var $this yii\web\View */
 /** @var $category \app\models\Category */
 /** @var $categories \yii\data\ActiveDataProvider */
 /** @var $posts \yii\data\ActiveDataProvider */
+/* @var $pages yii\data\Pagination */
 
 $this->title = 'Category ' . $category->title;
 $this->params['breadcrumbs'][] = $this->title;
@@ -20,13 +21,28 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
+    <div class="pager-container">
+        <?php
+        echo LinkPager::widget([
+          'pagination' => $pages,
+        ]);
+        ?>
+    </div>
+    
     <?php
-    foreach ($posts->models as $post) {
+    foreach ($posts as $post) {
         echo $this->render('//post/shortView', [
           'model' => $post,
         ]);
     }
     ?>
+    <div class="pager-container">
+        <?php
+        echo LinkPager::widget([
+          'pagination' => $pages,
+        ]);
+        ?>
+    </div>
 
 </div>
 

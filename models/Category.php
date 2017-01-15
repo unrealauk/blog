@@ -70,6 +70,7 @@ class Category extends \yii\db\ActiveRecord
     {
         return new ActiveDataProvider([
           'query' => Category::find(),
+          'pagination' => false,
         ]);
     }
 

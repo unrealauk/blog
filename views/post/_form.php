@@ -32,9 +32,9 @@ use yii\jui\DatePicker;
     ) ?>
 
     <?= $form->field($model, 'publish_status')->dropDownList([
-      'draft' => 'Draft',
       'publish' => 'Publish',
-    ], ['prompt' => '']) ?>
+      'draft' => 'Draft',
+    ]) ?>
 
     <?= $form->field($model, 'publish_date')->widget(DatePicker::className(),
       [

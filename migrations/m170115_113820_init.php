@@ -17,25 +17,25 @@ class m170115_113820_init extends Migration
           'id' => Schema::TYPE_PK,
           'login' => Schema::TYPE_STRING . '(32) NOT NULL',
           'password' => Schema::TYPE_STRING . '(100) NOT NULL',
-          'email' => Schema::TYPE_STRING . '(100) NOT NULL',
-          'nickname' => Schema::TYPE_STRING . ' NOT NULL',
+          'email' => 'TINYTEXT NOT NULL',
+          'nickname' => 'TINYTEXT NOT NULL',
           'about' => Schema::TYPE_TEXT . ' NOT NULL',
         ], $tableOptions);
 
         $this->createTable('{{category}}', [
           'id' => Schema::TYPE_PK,
-          'title' => Schema::TYPE_STRING . ' NOT NULL',
+          'title' => 'TINYTEXT NOT NULL',
         ], $tableOptions);
 
         $this->createTable('{{post}}', [
           'id' => Schema::TYPE_PK,
-          'title' => Schema::TYPE_STRING . ' NOT NULL',
+          'title' => 'TINYTEXT NOT NULL',
           'anons' => Schema::TYPE_TEXT . ' NOT NULL',
           'content' => Schema::TYPE_TEXT . ' NOT NULL',
           'category_id' => Schema::TYPE_INTEGER,
           'author_id' => Schema::TYPE_INTEGER,
-          'publish_status' => "enum('" . Post::STATUS_DRAFT . "','" . Post::STATUS_PUBLISH . "') NOT NULL DEFAULT '" . Post::STATUS_DRAFT . "'",
-          'publish_date' => Schema::TYPE_INTEGER . '(11)',
+          'publish_status' => Schema::TYPE_STRING . '(32) NOT NULL',
+          'publish_date' => Schema::TYPE_DATETIME,
         ], $tableOptions);
 
         $this->createIndex('FK_post_author', '{{post}}', 'author_id');

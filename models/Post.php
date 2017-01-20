@@ -131,7 +131,7 @@ class Post extends \yii\db\ActiveRecord
      */
     public function getDate()
     {
-        return date('d M, Y', $this->publish_date);
+        return date('d M, Y', strtotime($this->publish_date));
     }
 
     /**
@@ -139,7 +139,12 @@ class Post extends \yii\db\ActiveRecord
      */
     public function beforeSave($insert)
     {
-        $this->publish_date = strtotime($this->publish_date);
+        $this->publish_date = date('Y-m-d H:i:s', strtotime($this->publish_date));
         return parent::beforeSave($insert);
+    }
+
+    static function getConstants() {
+        $oClass = new ReflectionClass(__CLASS__);
+        return $oClass->getConstants();
     }
 }

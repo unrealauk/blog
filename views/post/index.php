@@ -13,14 +13,6 @@ use yii\widgets\LinkPager;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <div class="pager-container">
-        <?php
-        echo LinkPager::widget([
-          'pagination' => $pages,
-        ]);
-        ?>
-    </div>
-    
     <?php
     foreach ($posts as $post) {
         echo $this->render('shortView', [

@@ -5,6 +5,7 @@ use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use dosamigos\ckeditor\CKEditor;
 use yii\jui\DatePicker;
+use nex\chosen\Chosen;
 /* @var $this yii\web\View */
 /* @var $model app\models\Post */
 /* @var $form yii\widgets\ActiveForm */
@@ -23,9 +24,15 @@ use yii\jui\DatePicker;
       'preset' => 'basic',
     ]) ?>
 
-    <?= $form->field($model, 'category_id')->dropDownList(
-      ArrayHelper::map($category, 'id', 'title')
-    ) ?>
+    <?= $form->field($model, 'category_id')->widget(
+      Chosen::className(), [
+      'items' =>   ArrayHelper::map($category, 'id', 'title'),
+      'disableSearch' => 5,
+      'clientOptions' => [
+        'search_contains' => true,
+        'single_backstroke_delete' => false,
+      ],
+    ]);?>
 
     <?= $form->field($model, 'author_id')->dropDownList(
       ArrayHelper::map($authors, 'id', 'nickname')

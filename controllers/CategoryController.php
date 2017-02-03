@@ -8,6 +8,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\data\Pagination;
+use yii\filters\AccessControl;
 
 /**
  * CategoryController implements the CRUD actions for Category model.
@@ -20,6 +21,17 @@ class CategoryController extends Controller
     public function behaviors()
     {
         return [
+          'access' => [
+            'class' => AccessControl::className(),
+            'only' => ['create', 'update', 'delete'],
+            'rules' => [
+              [
+                'allow' => true,
+                'actions' => ['create', 'update', 'delete'],
+                'roles' => ['@'],
+              ],   
+            ],
+          ],
           'verbs' => [
             'class' => VerbFilter::className(),
             'actions' => [

@@ -10,6 +10,7 @@ use yii\filters\VerbFilter;
 use app\models\Category;
 use app\models\User;
 use yii\data\Pagination;
+use yii\filters\AccessControl;
 
 /**
  * PostController implements the CRUD actions for Post model.
@@ -22,6 +23,17 @@ class PostController extends Controller
     public function behaviors()
     {
         return [
+          'access' => [
+            'class' => AccessControl::className(),
+            'only' => ['create', 'update', 'delete'],
+            'rules' => [
+              [
+                'allow' => true,
+                'actions' => ['create', 'update', 'delete'],
+                'roles' => ['@'],
+              ],
+            ],
+          ],
           'verbs' => [
             'class' => VerbFilter::className(),
             'actions' => [

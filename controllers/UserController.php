@@ -24,11 +24,20 @@ class UserController extends Controller
         return [
           'access' => [
             'class' => AccessControl::className(),
-            'only' => ['logout'],
+            'only' => ['logout', 'login', 'create', 'update', 'delete'],
             'rules' => [
               [
-                'actions' => ['logout'],
-                'allow' => true,
+                'actions' => ['logout', 'delete'],
+                'allow' => TRUE,
+                'roles' => ['@'],
+              ],
+              [
+                'actions' => ['login', 'create'],
+                'allow' => TRUE,
+                'roles' => ['?'],
+              ],
+              [
+                'actions' => ['update'],
                 'roles' => ['@'],
               ],
             ],
@@ -132,7 +141,7 @@ class UserController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+            return $this->goHome();
         }
         return $this->render('login', [
           'model' => $model,

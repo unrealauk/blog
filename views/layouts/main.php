@@ -33,31 +33,28 @@ AppAsset::register($this);
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
+    $menuItems[] = ['label' => 'Contact', 'url' => ['/site/contact']];
+    if (Yii::$app->user->isGuest) {
+      $menuItems[] = ['label' => 'Login', 'url' => ['/user/login']];
+    }
+    else {
+      $menuItems[] = [
+        'label' => 'Actions',
         'items' => [
-            ['label' => 'Contact', 'url' => ['/site/contact']],
-            Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/user/login']]
-            ) : (
-                '<li>'
-                . Html::beginForm(['/user/logout'], 'post')
-                . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-link logout']
-                )
-                . Html::endForm()
-                . '</li>'
-            ),
-              [
-                'label' => 'Actions',
-                'items' => [
-                  ['label' => 'Add post', 'url' => ['/post/create']],
-                  ['label' => 'Add category', 'url' => ['/category/create']],
-                  ['label' => 'Add user', 'url' => ['/user/create']],
-                ],
-              ],
-            ],
+          ['label' => 'Add post', 'url' => ['/post/create']],
+          ['label' => 'Add category', 'url' => ['/category/create']],
+        ],
+      ];
+      $menuItems[] = [
+        'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
+        'url' => ['/user/logout'],
+        'linkOptions' => ['data-method' => 'post'],
+      ];
+    }
+
+    echo Nav::widget([
+      'options' => ['class' => 'navbar-nav navbar-right'],
+      'items' => $menuItems,
     ]);
     NavBar::end();
     ?>

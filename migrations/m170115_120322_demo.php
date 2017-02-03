@@ -29,7 +29,8 @@ class m170115_120322_demo extends Migration
               'category_id' => rand(1, 30),
               'author_id' => 1,
               'publish_status' => Post::STATUS_PUBLISH,
-              'publish_date' => rand(strtotime('-3 month'), time()),
+              'publish_date' => date('Y-m-d H:i:s',
+                rand(strtotime('-3 month'), time())),
             ]);
         }
     }

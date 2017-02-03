@@ -9,10 +9,11 @@ class m170115_120322_demo extends Migration
     public function up()
     {
         $this->insert('{{user}}', [
-          'login' => 'auk',
-          'password' => 'auk',
+          'username' => 'admin',
+          'auth_key' => 'Jg6O-7Sho1sxY38OgTcx3RTX30VUlXTi',
+          'password_hash' => '$2y$13$soSNIV4bp2xJ8RqInc6DEO9srU1NMuGpFlqGY3iFo1wn5jNl/pLny',
           'email' => 'unrealauk@gmail.com',
-          'nickname' => 'auk',
+          'nickname' => 'Admin',
           'about' => Lorem::sentences(3, true),
         ]);
 

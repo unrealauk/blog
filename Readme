@@ -1,9 +1,27 @@
-Authenticate 
-
-user/login
-user/register
-user/logout
-
+Actions list:
+site
+  /contact
+user    
+  /delete
+  /update 
+  /create
+  /view
+  /index
+  /login
+  /logout
+post
+  /view
+  /index
+  /create
+  /update
+  /delete
+category
+  /view
+  /index
+  /create
+  /update
+  /delete
+  
 // @todo
 admin/
 user/password

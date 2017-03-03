@@ -5,7 +5,7 @@ namespace app\models;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
-
+use app\models\Comment;
 /**
  * This is the model class for table "post".
  *
@@ -143,8 +143,11 @@ class Post extends \yii\db\ActiveRecord
         return parent::beforeSave($insert);
     }
 
-    static function getConstants() {
-        $oClass = new ReflectionClass(__CLASS__);
-        return $oClass->getConstants();
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getComments() {
+        return $this->hasMany(Comment::className(), ['post_id' => 'id'])
+          ->orderBy(['id'=> SORT_DESC]);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Comment;
 use Yii;
 use app\models\Post;
 use yii\web\Controller;
@@ -79,9 +80,24 @@ class PostController extends Controller
     public function actionView($id)
     {
         $post = new Post();
+        $comment = new Comment();
+
+        if ($comment->load(Yii::$app->request->post()) && $comment->save()) {
+            return $this->redirect(['view', 'id' => $id]);
+        }
+        $post = $post->getPost($id);
+        $comments = $post->getComments();
+        $pages = new Pagination(['totalCount' => $comments->count()]);
+        $pages->setPageSize(5);
 
         return $this->render('view', [
-          'model' => $post->getPost($id),
+          'model' => $post,
+          'comment' => $comment,
+          'pages' => $pages,
+          'comments' => $comments->offset($pages->offset)
+            ->limit($pages->limit)
+            ->joinWith('author')
+            ->all(),
         ]);
     }
 

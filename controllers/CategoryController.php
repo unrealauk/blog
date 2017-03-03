@@ -50,16 +50,18 @@ class CategoryController extends Controller
     {
         $category = Category::findOne(['id' => $id]);
         $posts = $category->getPosts($id);
-        $countQuery = clone $posts->query;
-        $pages = new Pagination(['totalCount' => $countQuery->count()]);
+        $pages = new Pagination(['totalCount' => $posts->query->count()]);
         $pages->setPageSize(5);
-        $posts = $posts->query->offset($pages->offset)
+        $posts = $posts->query
+          ->joinWith('author')
+          ->joinWith('category')
+          ->offset($pages->offset)
           ->limit($pages->limit)
           ->all();
 
         return $this->render('index', [
           'pages' => $pages,
-          'category' => $category->getCategory($id),
+          'category' => $category,
           'posts' => $posts,
           'categories' => $category->getCategories(),
         ]);

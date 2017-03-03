@@ -57,7 +57,10 @@ class PostController extends Controller
         $countQuery = clone $query;
         $pages = new Pagination(['totalCount' => $countQuery->count()]);
         $pages->setPageSize(5);
-        $posts = $query->offset($pages->offset)
+        $posts = $query
+          ->joinWith('category')
+          ->joinWith('author')
+          ->offset($pages->offset)
           ->limit($pages->limit)
           ->all();
         return $this->render('index', [
